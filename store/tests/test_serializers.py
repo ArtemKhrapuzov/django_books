@@ -23,8 +23,7 @@ class BookSerializerTestCase(TestCase):
         UserBookRelation.objects.create(user=user2, book=book_2, like=True, rate=4)
         UserBookRelation.objects.create(user=user3, book=book_2, like=False)
         books = Book.objects.all().annotate(
-            annotated_likes=Count(Case(When(userbookrelation__like=True, then=1))),
-            rating=Avg('userbookrelation__rate')
+            annotated_likes=Count(Case(When(userbookrelation__like=True, then=1)))
         ).order_by('id')
         data = BookSerializer(books, many=True).data
         expected_data = [
