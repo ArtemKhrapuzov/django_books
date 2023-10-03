@@ -41,8 +41,6 @@ class BooksApiTestCase(APITestCase):
         response = self.client.get(url, data={'search': 'author 1'})
         serializer_data = BookSerializer(books, many=True).data
         self.assertEqual(status.HTTP_200_OK, response.status_code)
-        print(serializer_data)
-        print(response.data)
         self.assertEqual(serializer_data, response.data)
 
     def test_create(self):
